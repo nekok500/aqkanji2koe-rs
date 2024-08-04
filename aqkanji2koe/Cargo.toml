@@ -1,0 +1,9 @@
+[package]
+name = "aqkanji2koe"
+license.workspace = true
+edition.workspace = true
+version.workspace = true
+
+[dependencies]
+libc = "0.2.155"
+thiserror = "1.0.63"

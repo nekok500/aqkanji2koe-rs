@@ -1,0 +1,15 @@
+[package]
+name = "examples"
+license.workspace = true
+edition.workspace = true
+version.workspace = true
+publish = false
+
+[dependencies]
+anyhow = "1.0.86"
+aqkanji2koe = { path = "../aqkanji2koe" }
+aquestalk = "0.1.2"
+
+[[example]]
+name = "aquestalk"
+path = "aquestalk.rs"

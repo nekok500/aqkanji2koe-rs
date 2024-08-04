@@ -43,6 +43,11 @@ impl From<i32> for AqKanji2KoeError {
 pub struct AqKanji2Koe(*const c_void);
 
 impl AqKanji2Koe {
+    /// AqKanji2Koeのインスタンスを作成します。
+    /// ReleaseはDrop時に自動で実行されます。
+    ///
+    /// # Arguments
+    /// * `dic` -  システム辞書のパス
     pub fn create(dic: &str) -> Result<AqKanji2Koe> {
         use std::ffi::CString;
 
@@ -58,6 +63,11 @@ impl AqKanji2Koe {
         Ok(AqKanji2Koe(handle))
     }
 
+    /// 入力を音声記号列に変換します。
+    /// 評価版は「ナ行、マ行」の音韻がすべて「ヌ」になる制限があります。
+    ///
+    /// # Arguments
+    /// * `kanji` - 変換する文字列
     pub fn convert(self, kanji: &str) -> Result<String> {
         use std::ffi::CString;
 
@@ -78,6 +88,10 @@ impl AqKanji2Koe {
         Ok(String::from(koe.to_str().unwrap()))
     }
 
+    /// ライセンスキーを設定します。
+    ///
+    /// # Arguments
+    /// * `key` - ライセンスキー
     pub fn set_dev_key(key: &str) -> Result<()> {
         let key = CString::new(key).unwrap();
         let error: i32 = unsafe { ffi::AqKanji2Koe_SetDevKey(key.as_ptr()) };
